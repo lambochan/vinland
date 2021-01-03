@@ -222,7 +222,7 @@
   </section>
 
   <!-- Section: Footer -->
-  <footer class="page-footer blue-grey darkne-1">
+  <footer class="page-footer blue-grey darken-1">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -255,7 +255,8 @@
       <a class="grey-text text-lighten-4 right" href="#home"><i class="material-icons left">keyboard_arrow_up</i> Back to Top</a>
       </div>
     </div>
-  </footer
+  </footer>
+
 
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -271,6 +272,16 @@
 
       // Init scrollspy
       $('.scrollspy').scrollSpy();
+
+      // Init modal
+      $('.modal').modal({
+        dismissible: true,
+        inDuration: 300,
+        outDuration: 200,
+        ready: function (modal, trigger) {
+          console.log('Modal Opened', modal, trigger);
+        }
+      });
       
       // Init Scrollfire
       const options = [
@@ -288,32 +299,36 @@
 
       Materialize.scrollFire(options);
 
-      const position = [42.361145, -71.057083];
-      const centerPosition = [42.377815, -70.981133];
+      const position = [15.4905045, 120.9684264];
+      const centerPosition = [15.4905045, 120.9684264];
 
       function showGoogleMaps() {
+        // Map positions
         const latLng = new google.maps.LatLng(position[0], position[1]);
         const centerLatLng = new google.maps.LatLng(centerPosition[0], centerPosition[1]);
 
+        // Map options
         const mapOptions = {
           zoom: 12,
-          streetViewContro: false,
+          streetViewControl: false,
           scaleControl: true,
-          napTypeId: google.maps.mapTypeId.ROADMAP,
-          center: centerLayLng
-        };
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          center: centerLatLng
+        }
 
-        map = new google.maps.map(document.getElementById(`googlemap`)),
+        // Create map
+        map = new google.maps.Map(document.getElementById('googlemap'), mapOptions);
 
+        // Show Marker
         marker = new google.maps.Marker({
-          position: LatLng,
+          position: latLng,
           map: map,
-          draggble: false,
+          draggable: false,
           animation: google.maps.Animation.DROP
         });
+      }
 
-      };
-
+      // Maps event
       google.maps.event.addDomListener(window, 'load', showGoogleMaps);
 
     });
